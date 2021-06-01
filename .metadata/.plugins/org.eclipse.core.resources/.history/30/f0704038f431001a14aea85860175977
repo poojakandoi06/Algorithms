@@ -1,0 +1,10 @@
+package dp;
+
+public class count_palindromic_subsequence {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

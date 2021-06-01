@@ -1,0 +1,10 @@
+package dp;
+
+public class LinearEquationOf_n_variables {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

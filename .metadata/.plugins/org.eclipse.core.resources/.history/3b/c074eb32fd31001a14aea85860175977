@@ -1,0 +1,10 @@
+package dp;
+
+public class min_deletion_to_make_sorted_sequence {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,163 @@
+package November_long;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.StringTokenizer;
+
+public class RESTORE {
+
+	public static void main(String[] args) {
+		MyScanner s = new MyScanner();
+		out = new PrintWriter(new BufferedOutputStream(System.out));
+		int t=s.nextInt();
+		while(t-->0) {
+			int n=s.nextInt();
+			int[] arr=new int[n];
+			for(int i=0;i<n;i++)
+				arr[i]=s.nextInt();
+			HashMap<Integer,Integer> map=new HashMap<>();
+			for(int i:arr) {
+				map.put(i,map.getOrDefault(i, 0)+1);
+			}
+			int size=map.size();
+			HashSet<Integer> included=new HashSet<>();
+			ArrayList<Integer> prime=get_prime(size);
+			int primes=0;
+			int[] res=new int[n];
+			for(int i=0;i<n;i++) {
+				int num=arr[i];
+				if(!included.contains(num)) {
+					res[i]=(int)Math.pow(prime.get(primes++),map.get(num));
+					map.put(num,map.get(num)-1);
+					included.add(num);
+				}
+			}
+			for(int i=0;i<n;i++) {
+				System.out.print(res[i]+" ");
+			}
+		}
+		
+		
+		out.close();
+	}
+	public static ArrayList<Integer> get_prime(int size){
+		ArrayList<Integer> list=new ArrayList<Integer>();
+		int j, flag;
+	    int i=2;
+	    while(size>0)
+	    { 
+	 
+	        flag = 1; 
+	 
+	        for (j = 2; j <= i / 2; ++j) 
+	        { 
+	            if (i % j == 0)
+	            { 
+	                flag = 0; 
+	                break; 
+	            } 
+	        } 
+	        if(flag==1) {
+	        	list.add(i);
+	        	size--;
+	        }
+	        
+	    }
+	 return list;
+	     
+	}
+	
+	public static PrintWriter out;
+	
+	public static class MyScanner {
+		BufferedReader br;
+		StringTokenizer st;
+		
+		public MyScanner() {
+			br = new BufferedReader(new InputStreamReader(System.in));
+		}
+		
+		String next() {
+			while (st == null || !st.hasMoreElements()) {
+				try {
+					st = new StringTokenizer(br.readLine());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return st.nextToken();
+		}
+		
+		int nextInt() {
+			return Integer.parseInt(next());
+		}
+		
+		long nextLong() {
+			return Long.parseLong(next());
+		}
+		
+		double nextDouble() {
+			return Double.parseDouble(next());
+		}
+		
+		String nextLine() {
+			String str = "";
+			try {
+				str = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return str;
+		}
+		
+	}
+	public static class FastScanner {
+		BufferedReader br;
+		StringTokenizer st;
+		
+		public FastScanner(String s) {
+			try {
+				br = new BufferedReader(new FileReader(s));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public FastScanner() {
+			br = new BufferedReader(new InputStreamReader(System.in));
+		}
+		
+		String nextToken() {
+			while (st == null || !st.hasMoreElements()) {
+				try {
+					st = new StringTokenizer(br.readLine());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return st.nextToken();
+		}
+		
+		int nextInt() {
+			return Integer.parseInt(nextToken());
+		}
+		
+		long nextLong() {
+			return Long.parseLong(nextToken());
+		}
+		
+		double nextDouble() {
+			return Double.parseDouble(nextToken());
+		}
+
+	}
+
+}

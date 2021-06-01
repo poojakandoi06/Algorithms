@@ -1,0 +1,10 @@
+package dp;
+
+public class max_sum_subsequence_without_adjacent {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

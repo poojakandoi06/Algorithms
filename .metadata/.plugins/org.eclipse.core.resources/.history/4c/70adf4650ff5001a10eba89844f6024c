@@ -1,0 +1,180 @@
+package Div2_670;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class C {
+
+	public static void main(String[] args) {
+		MyScanner s = new MyScanner();
+		out = new PrintWriter(new BufferedOutputStream(System.out));
+		int t = s.nextInt();
+		while (t-- > 0) {
+			int n = s.nextInt();
+			ArrayList<Integer>[] list = new ArrayList[n + 1];
+			for (int i = 0; i <= n; i++)
+				list[i] = new ArrayList<Integer>();
+			for (int i = 1; i < n; i++) {
+				int x = s.nextInt();
+				int y = s.nextInt();
+				list[x].add(y);
+				list[y].add(x);
+				
+			}
+			int[] mdown = new int[n + 1];
+			int[] total = new int[n + 1];
+			int[] maxi=new int[n+1];
+			Arrays.fill(total, -1);
+			Arrays.fill(mdown, Integer.MIN_VALUE);
+			Arrays.fill(maxi, -1);
+			int count = dfs(1, list, -1, mdown, total,maxi);
+			int vertex = -1;
+			boolean found=false;
+			int max = Integer.MAX_VALUE;
+			for (int i = 1; i <= n; i++) {
+				int rem = count - total[i] - 1;
+				mdown[i] = Math.max(rem, mdown[i]);
+				if (mdown[i] < max) {
+					max = mdown[i];
+					vertex=i;
+				}
+				
+			}
+			for(int i=1;i<=n;i++) {
+				System.out.println(mdown[i]);
+			}
+			int v1=-1;
+			int v2=-1;
+			for(int i=1;i<=n;i++) {
+				if(mdown[i]==max) {
+					if(v1==-1)
+						v1=i;
+					else {
+						v2=i;
+						break;
+					}
+				}
+			}
+			System.out.println(v1+" "+maxi[v1]);
+			if(v2==-1) {
+				System.out.println(v1+" "+maxi[v1]);
+			}
+			else
+			System.out.println(v2+" "+maxi[v2]);
+		}
+
+		out.close();
+	}
+	public static int dfs(int i, ArrayList<Integer>[] list, int prev, int[] mdown, int[] total,int[] maxi) {
+		if(total[i]!=-1)
+			return total[i];
+		int max = 0;
+		for (int j = 0; j < list[i].size(); j++) {
+			int v = list[i].get(j);
+			if (v == prev)
+				continue;
+			int val = dfs(v, list, i, mdown, total,maxi);
+			max += val;
+			if(val>mdown[i]) {
+				maxi[i]=v;
+				mdown[i]=val;
+			}
+		}
+		total[i] = max;
+		return max + 1;
+	}
+	public static PrintWriter out;
+
+	public static class MyScanner {
+		BufferedReader br;
+		StringTokenizer st;
+
+		public MyScanner() {
+			br = new BufferedReader(new InputStreamReader(System.in));
+		}
+
+		String next() {
+			while (st == null || !st.hasMoreElements()) {
+				try {
+					st = new StringTokenizer(br.readLine());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return st.nextToken();
+		}
+
+		int nextInt() {
+			return Integer.parseInt(next());
+		}
+
+		long nextLong() {
+			return Long.parseLong(next());
+		}
+
+		double nextDouble() {
+			return Double.parseDouble(next());
+		}
+
+		String nextLine() {
+			String str = "";
+			try {
+				str = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return str;
+		}
+
+	}
+
+	public static class FastScanner {
+		BufferedReader br;
+		StringTokenizer st;
+
+		public FastScanner(String s) {
+			try {
+				br = new BufferedReader(new FileReader(s));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public FastScanner() {
+			br = new BufferedReader(new InputStreamReader(System.in));
+		}
+
+		String nextToken() {
+			while (st == null || !st.hasMoreElements()) {
+				try {
+					st = new StringTokenizer(br.readLine());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return st.nextToken();
+		}
+
+		int nextInt() {
+			return Integer.parseInt(nextToken());
+		}
+
+		long nextLong() {
+			return Long.parseLong(nextToken());
+		}
+
+		double nextDouble() {
+			return Double.parseDouble(nextToken());
+		}
+
+	}
+
+}

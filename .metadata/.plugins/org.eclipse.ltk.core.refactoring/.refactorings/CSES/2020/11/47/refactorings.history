@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;CSES/src/weird_Algorithm.java&apos; to &apos;Solution.java&apos;" description="Rename resource &apos;weird_Algorithm.java&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/weird_Algorithm.java" name="Solution.java" stamp="1605534356235" updateReferences="true"/>
+</session>

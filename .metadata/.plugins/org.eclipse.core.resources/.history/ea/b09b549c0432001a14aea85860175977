@@ -1,0 +1,25 @@
+package dp;
+
+public class Activity_selection_GREEDY {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	public static class pair implements Comparable<pair>{
+		int s;
+		int e;
+		public pair(int s, int e) {
+			this.s=s;
+			this.e=e;
+		}
+		@Override
+		public int compareTo(pair o) {
+			return this.e-o.e;
+		}
+	}
+	public static int activitySelection(int[] start, int[] end) {
+		
+	}
+
+}

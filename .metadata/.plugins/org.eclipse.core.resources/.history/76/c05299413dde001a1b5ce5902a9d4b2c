@@ -1,0 +1,65 @@
+package lru;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+class Main {
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		String str=s.next();
+		long[][] dp=new long[str.length()][7];
+		long[][] dp2=new long[str.length()][7];
+		for(int i=0;i<str.length();i++)
+			Arrays.fill(dp[i], -1);
+		for(int i=0;i<str.length();i++) //wekrzdsfkjsldkjwelkjwerlwejr
+			Arrays.fill(dp2[i], -1);
+		System.out.println(func(str,0,0,dp,dp2)%1000000007);
+	}
+	public static long func(String str, int idx, int cost, long[][] dp, long[][] dp2) {
+		if(idx==str.length())
+		{
+			if(cost%7==0)
+				return 1;
+			else
+				return 0;
+		}
+		if(dp[idx][cost]!=-1)
+			return dp[idx][cost];
+		long max=0;
+		for(int i=0;i<(str.charAt(idx)-'a');i++) {
+			max=(max+func2(str.length()-idx-1,(cost+i)%7,dp2))%1000000007;
+		}
+		max=(max+func(str,idx+1,(cost+(str.charAt(idx)-'a'))%7,dp,dp2))%1000000007;
+		dp[idx][cost]=max%1000000007;
+		//System.out.println(max+""+"G");
+		return dp[idx][cost]%1000000007;
+	}
+	public static long func2(int len, int cost, long[][] dp2) {
+		if(len<0)
+			return 0;
+
+			if(len==0) {
+			if(cost==0)
+			{
+				//System.out.println(s2);
+				return 1;
+			}
+			else
+				return 0;
+		}
+			if(dp2[len][cost]!=-1)
+				return dp2[len][cost];
+		long max=0;
+		for(int i=0;i<26;i++) {
+			int cost1=(cost+i)%7;
+			//System.out.println(cost1);
+			max=(max+func2(len-1,cost1,dp2))%1000000007;
+		}
+		//System.out.println(max+""+"h");
+		dp2[len][cost]=max%1000000007;
+		return max%1000000007;
+	}
+	
+	
+    
+}

@@ -1,0 +1,76 @@
+package lru;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class Codechef {
+ 
+	public static void main(String[] args) {
+		try {
+
+			Scanner s = new Scanner(System.in);
+			int t = s.nextInt();
+			while (t-- > 0) {
+				int n = s.nextInt();
+				int k = s.nextInt();
+				int[] arr = new int[n];
+				for (int i = 0; i < n; i++) {
+					arr[i] = s.nextInt();
+				}
+				int[] f = new int[101];
+				if (arr.length == 0)
+					System.out.println(0);
+				else {
+					HashMap<String,Integer> map=new HashMap<String,Integer>();
+					int val = dfs(arr, 0, f, k,map);
+					System.out.println(val);
+				}
+			}
+
+		} catch (Exception e) {
+			return;
+		}
+
+	}
+
+	public static int dfs(int[] arr, int i, int[] fam,  int k,HashMap<String,Integer> map) {
+		if (i == arr.length) {
+			return 0;
+		}
+		StringBuilder sb=new StringBuilder();
+		int[] fam2=new int[101];
+		for(int j=i;j<arr.length;j++)
+			fam2[arr[j]]++;
+		for(int j:fam2)
+			sb.append(j);
+		String dp=sb.toString();
+			
+		if(map.containsKey(dp))
+			return map.get(dp);
+		
+		int max=Integer.MAX_VALUE;
+		if(i==0) {
+			fam[arr[i]]++;
+			max=Math.min(max,k+dfs(arr, i + 1, fam, k,map));
+		}
+		if (fam[arr[i]] == 0) {
+			fam[arr[i]]++;
+			max=Math.min(max,dfs(arr, i + 1, fam, k,map));
+		} else {
+			int[] newfam = new int[101];
+			newfam[arr[i]]++;
+			max=Math.min(max, k+dfs(arr, i + 1, newfam, k,map));
+			int val = fam[arr[i]] == 1 ? 2 : 1;
+			fam[arr[i]]++;
+			max=Math.min(max,val+dfs(arr, i + 1, fam, k,map));
+			
+		}
+		map.put(dp,max);
+		return max;
+	}
+
+}

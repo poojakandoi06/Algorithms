@@ -1,0 +1,111 @@
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class codejam2021 {
+
+	public static void main(String[] args) {
+		MyScanner s = new MyScanner();
+		out = new PrintWriter(new BufferedOutputStream(System.out));
+		int t=s.nextInt();
+		for(int k=1;k<=t;k++) {
+			String str=s.next();
+			int[][][] dp=new int[str.length()][str.length()][2];
+			for(int i=0;i<dp.length;i++) {
+				for(int j=0;j<dp[i].length;j++) {
+					Arrays.fill(dp[i][j], Integer.MIN_VALUE);
+				}
+			}
+			int res=dfs(str,1, 0, str.length()-1,dp);
+			int a=dp[0][str.length()-1][1];
+			int b=dp[0][str.length()-1][0];
+			if(a>b) {
+			out.println("Case #"+k+": "+"I"+" "+(a+1));
+			}
+//			else if(res==0 && str.length()%2!=0){
+//				out.println("Case #"+k+": "+"I"+" "+(res+1));
+//			}
+//				
+				else {
+			out.println("Case #"+k+": "+"O"+" "+(Math.abs(b)+1));
+
+			}
+		}
+		
+		
+		
+		out.close();
+	}
+	
+	public static int dfs(String str, int turn, int i, int j,int[][][] dp) {
+		char val=turn==1?'I':'O';
+		if(str.charAt(i)==val && str.charAt(j)==val && i==j) {
+			return dp[i][j][turn]=(j-i);
+		}
+		if(str.charAt(i)!=val && str.charAt(j)!=val) {
+			return dp[i][j][turn]=-(j-i+1);
+		}
+		int max=Integer.MIN_VALUE;
+		if(str.charAt(i)==val) {
+			max=Math.max(max, -1*dfs(str,1-turn,i+1,j,dp));
+		}
+		if(str.charAt(j)==val) {
+			max=Math.max(max, -1*dfs(str,1-turn,i,j-1,dp));
+		}
+		return dp[i][j][turn]=max;
+		
+		
+	}
+	public static PrintWriter out;
+	
+	public static class MyScanner {
+		BufferedReader br;
+		StringTokenizer st;
+		
+		public MyScanner() {
+			br = new BufferedReader(new InputStreamReader(System.in));
+		}
+		
+		String next() {
+			while (st == null || !st.hasMoreElements()) {
+				try {
+					st = new StringTokenizer(br.readLine());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return st.nextToken();
+		}
+		
+		int nextInt() {
+			return Integer.parseInt(next());
+		}
+		
+		long nextLong() {
+			return Long.parseLong(next());
+		}
+		
+		double nextDouble() {
+			return Double.parseDouble(next());
+		}
+		
+		String nextLine() {
+			String str = "";
+			try {
+				str = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return str;
+		}
+		
+		
+		
+
+	}
+
+}

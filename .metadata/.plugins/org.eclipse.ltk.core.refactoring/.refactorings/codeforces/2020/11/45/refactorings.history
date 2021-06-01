@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;codeforces/src/Educational_round_97&apos; to &apos;Div2_681&apos;" description="Rename resource &apos;Educational_round_97&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Educational_round_97" name="Div2_681" stamp="1604326865490" updateReferences="true"/>
+</session>

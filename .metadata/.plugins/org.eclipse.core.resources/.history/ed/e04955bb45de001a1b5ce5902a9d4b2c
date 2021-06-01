@@ -1,0 +1,60 @@
+package lru;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Scanner;
+ 
+public class Main {
+	public static void main(String[] args) {
+		Scanner s=new Scanner(System.in);
+		int t=s.nextInt();
+		while(t-->0) {
+			int n=s.nextInt();
+			String num=s.next();
+			int[] arr=new int[n];
+			for(int i=0;i<n;i++) {
+				arr[i]=num.charAt(i)-'0';
+			}
+			int[] sum=new int[n+1];
+			for(int i=0;i<n;i++) {
+				sum[i+1]=sum[i]+arr[i];
+			}
+			
+			int count=0;
+			for(int i=1;i<=n;i++) {
+				count+=bs(i,sum,1,i);
+			}
+			System.out.println(count);
+				
+			
+			
+		}
+	}
+
+	private static int bs(int num, int[] sum, int i, int j) {
+		if(i<=0 || j<=0 || i>j)
+			return 0;
+		if(i==j) {
+			if((sum[num]-sum[i-1])==(num-i+1))
+				return 1;
+			else
+				return 0;
+		}
+		int mid=(i+j)/2;
+		int val=sum[num]-sum[mid-1];
+		int len=num-mid+1;
+		if(val==len) {
+			return 1+bs(num,sum,i,mid-1)+bs(num,sum,mid+1,j);
+		}
+		else if(val>len) {
+			return bs(num,sum,i,mid-1);
+		}
+		else {
+			return bs(num,sum,mid+1,j);
+		}
+	}
+	
+	
+	
+    
+}

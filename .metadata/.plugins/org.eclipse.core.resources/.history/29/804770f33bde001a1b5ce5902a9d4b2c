@@ -1,0 +1,58 @@
+package lru;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class Codechef {
+
+	public static void main(String[] args) {
+		try {
+
+			Scanner s = new Scanner(System.in);
+			int t = s.nextInt();
+			while (t-- > 0) {
+				int n=s.nextInt();
+				int k=s.nextInt();
+				int[] arr=new int[n];
+				for(int i=0;i<n;i++) {
+					arr[i]=s.nextInt();
+				}
+				HashMap<Integer,Integer> map=new HashMap<>();
+				int res=k;
+				int extra=0;
+				for(int i=0;i<n;i++) {
+					if(!map.containsKey(arr[i])) {
+						map.put(arr[i],1);
+					}
+					else {
+						int e=map.get(arr[i])>1?1:2;
+						if((extra+e)<k) {
+							map.put(arr[i],map.getOrDefault(arr[i], 0)+1);
+							res=res+e;
+							extra+=e;
+						}
+						else {
+							map=new HashMap<>();
+							map.put(arr[i],1);
+							res+=k;
+							extra=0;
+						}
+					}
+				}
+				System.out.println(res);
+				
+			}
+
+		} catch (Exception e) {
+			return;
+		}
+
+	}
+
+	
+
+}

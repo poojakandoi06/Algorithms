@@ -1,0 +1,10 @@
+package dp;
+
+public class maxsum_alternating_subsequence {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Codechef/src/cookOff_October/A.java&apos; to &apos;SPLITIT.java&apos;" description="Rename resource &apos;A.java&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/cookOff_October/A.java" name="SPLITIT.java" stamp="1603037076780" updateReferences="true"/>
+</session>

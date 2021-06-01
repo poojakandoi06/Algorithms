@@ -1,0 +1,34 @@
+package dp;
+
+import java.util.Arrays;
+
+public class coinCHange {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] denoms = {1,2,3};
+		int amount = 5;
+		System.out.println(coinchange(denoms,amount));
+
+	}
+	//permutation
+	public static int coinchange(int[] coins, int target) {
+		Arrays.sort(coins);
+		int[] dp=new int[target+1];
+		dp[0]=1;
+		for(int i=0;i<coins.length;i++) {
+			for(int j=coins[i];j<=target;j++) {
+				dp[j]+=dp[j-coins[i]];
+			}
+		}
+		return dp[target];
+		
+	}
+	//combination
+//	public static int coinchangeComb(int[] coins, int target) {
+//		int[] dp=new int[target+1];
+//		dp[0]=0;
+//			
+//	}
+
+}

@@ -1,0 +1,59 @@
+package lru;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class Codechef {
+
+	public static void main(String[] args) {
+		try {
+
+			Scanner s = new Scanner(System.in);
+			int t = s.nextInt();
+			while (t-- > 0) {
+				int n = s.nextInt();
+				int k = s.nextInt();
+				int[] arr = new int[n];
+				for (int i = 0; i < n; i++) {
+					arr[i] = s.nextInt();
+				}
+				int[] f = new int[101];
+				if (arr.length == 0)
+					System.out.println(0);
+				else {
+					int val = dfs(arr, 0, f, k, k);
+					System.out.println(val);
+				}
+
+			}
+
+		} catch (Exception e) {
+			return;
+		}
+
+	}
+
+	public static int dfs(int[] arr, int i, int[] fam, int cost, int k) {
+		if (i == arr.length) {
+			return cost;
+		}
+		System.out.println(cost);
+		if (fam[arr[i]] == 0) {
+			fam[arr[i]]++;
+			return dfs(arr, i + 1, fam, cost, k);
+		} else {
+			int[] newfam = new int[101];
+			newfam[arr[i]]++;
+			int max1 = dfs(arr, i + 1, newfam, cost + k, k);
+			fam[arr[i]]++;
+			int val = fam[arr[i]] == 1 ? 2 : 1;
+			int max2 = dfs(arr, i + 1, fam, cost + val, k);
+			return Math.min(max1, max2);
+		}
+	}
+
+}

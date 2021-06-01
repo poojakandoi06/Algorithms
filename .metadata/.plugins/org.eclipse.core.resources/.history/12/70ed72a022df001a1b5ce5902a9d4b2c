@@ -1,0 +1,68 @@
+package lru;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class Codechef {
+
+	public static void main(String[] args) {
+		try {
+
+			Scanner s = new Scanner(System.in);
+			int t = s.nextInt();
+			while (t-- > 0) {
+				int n = s.nextInt();
+				int k = s.nextInt();
+				int[] arr = new int[n];
+				for (int i = 0; i < n; i++) {
+					arr[i] = s.nextInt();
+				}
+				int[][] dp = new int[arr.length][arr.length];
+				for (int i = 0; i < arr.length; i++) {
+					for (int j = i; j < arr.length; j++) {
+						dp[i][j] = find(arr, i, j, k);
+					}
+				}
+
+				for (int i = 0; i < dp.length; i++) {
+					for (int j = i; j < arr.length; j++) {
+						for (int l = i + 1; l <= j; l++) {
+							dp[i][j] = Math.min(dp[i][j], dp[i][l] + dp[l + 1][j]);
+						}
+					}
+				}
+				for(int i=0;i<dp.length;i++) {
+					for(int j=0;j<dp[0].length;j++) {
+						System.out.print(dp[i][j]+" ");
+					}
+					System.out.println();
+				}
+				System.out.println(dp[0][arr.length-1]);
+
+			}
+
+		} catch (Exception e) {
+			return;
+		}
+
+	}
+
+	private static int find(int[] arr, int i, int j, int k) {
+		int[] fam = new int[101];
+		for (int m = i; m <= j; m++) {
+			fam[arr[m]]++;
+		}
+		int count = k;
+		for (int s : fam) {
+			if (s > 1) {
+				count += s;
+			}
+		}
+		return count;
+
+	}
+}

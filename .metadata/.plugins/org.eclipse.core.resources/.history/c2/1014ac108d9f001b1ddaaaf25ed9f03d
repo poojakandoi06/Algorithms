@@ -1,0 +1,145 @@
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class codejam2021 {
+
+	public static void main(String[] args) {
+		MyScanner s = new MyScanner();
+		out = new PrintWriter(new BufferedOutputStream(System.out));
+		int t=s.nextInt();
+		for(int k=1;k<=t;k++) {
+			int n=s.nextInt();
+			int[] arr=new int[n];
+			int count=1;
+			for(int i=0;i<n;i++) {
+				arr[i]=s.nextInt();
+				count+=arr[i];
+			}
+			System.out.println(count);
+			int[] res=new int[count];
+			res[0]=1;
+			StringBuilder sb=new StringBuilder();
+			int place=1;
+			for(int i=1;i<=arr.length;i++) {
+				int prev=res[place-1];
+				if(i%2!=0) {
+					 // inc
+					if(i==arr.length) {
+						for(int j=0;j<arr[i-1];j++) {
+							res[place]=prev+1;
+							//System.out.println(place+" "+res[place]);
+							prev=res[place];
+							place=place+1;
+						}
+					}
+					else {
+						int next=arr[i];
+						int now=arr[i-1];
+						if(next<(prev+now)) {
+							for(int j=0;j<arr[i-1];j++) {
+								res[place]=prev+1;
+								//System.out.println(place+" "+res[place]);
+
+								prev=res[place];
+								place=place+1;
+							}
+						}
+						else {
+							int diff=(next)-(prev+now)+1;
+							for(int j=0;j<arr[i-1]-1;j++) {
+								res[place]=prev+1;
+								//System.out.println(place+" "+res[place]);
+
+								prev=res[place];
+								place=place+1;
+							}
+							res[place]=prev+1+diff;
+							System.out.println(place+" "+res[place]);
+
+							prev=res[place];
+							place++;
+						}
+					}
+					
+				}
+			
+				else {
+					int total=arr[i-1];
+					for(int j=0;j<arr[i-1];j++) {
+						res[place]=total;
+						//System.out.println(place+" "+res[place]);
+
+						total--;
+						prev=res[place];
+						place=place+1;
+					}
+				}
+			}
+			
+			for(int i=0;i<res.length;i++) {
+				char c=(char)('A'+(res[i]-1));
+				sb.append(c);
+			}
+			
+			out.println("Case #"+k+": "+sb.toString());
+		}
+		
+		
+		
+		out.close();
+	}
+	
+	public static PrintWriter out;
+	
+	public static class MyScanner {
+		BufferedReader br;
+		StringTokenizer st;
+		
+		public MyScanner() {
+			br = new BufferedReader(new InputStreamReader(System.in));
+		}
+		
+		String next() {
+			while (st == null || !st.hasMoreElements()) {
+				try {
+					st = new StringTokenizer(br.readLine());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return st.nextToken();
+		}
+		
+		int nextInt() {
+			return Integer.parseInt(next());
+		}
+		
+		long nextLong() {
+			return Long.parseLong(next());
+		}
+		
+		double nextDouble() {
+			return Double.parseDouble(next());
+		}
+		
+		String nextLine() {
+			String str = "";
+			try {
+				str = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return str;
+		}
+		
+		
+		
+
+	}
+
+}

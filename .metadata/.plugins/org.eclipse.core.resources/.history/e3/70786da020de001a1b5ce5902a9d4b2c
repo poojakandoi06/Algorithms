@@ -1,0 +1,48 @@
+package lru;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Codechef {
+
+	public static void main(String[] args) {
+		try {
+
+			Scanner s = new Scanner(System.in);
+			int t = s.nextInt();
+			while (t-- > 0) {
+				int chef=s.nextInt();
+				int rick=s.nextInt();
+				if((chef<10 && rick<10) || rick<10) {
+					System.out.println(1+" "+1);
+					continue;
+				}
+				else if(chef<10) {
+					System.out.println(0+" "+1);
+					continue;
+				}
+				else {
+					int remc=(rick%9!=0)?1:0;
+					int chefc=(chef%9!=0)?1:0;
+					int c=chef/9+chefc;
+					int r=rick/9+remc;
+					
+					if(r<=c) {
+						System.out.println(1+" "+r);
+					}
+					else {
+						System.out.println(0+" "+c);
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			return;
+		}
+
+	}
+
+}
